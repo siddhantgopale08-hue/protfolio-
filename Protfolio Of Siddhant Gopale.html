@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#09090d">
+  <meta name="description" content="Siddhant Gopale is a video editor and visual storyteller crafting cinematic edits, event films and social-first stories in Pune, India.">
+  <title>Siddhant Gopale — Video Editor &amp; Visual Storyteller</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09090d;
+      --panel: #111117;
+      --panel-light: #171720;
+      --line: rgba(255,255,255,.11);
+      --text: #f4f2f8;
+      --muted: #9693a3;
+      --purple: #a855f7;
+      --cyan: #56e8ed;
+      --mono: "DM Mono", monospace;
+      --sans: "Manrope", sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    body.modal-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { color: inherit; font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    ::selection { background: var(--cyan); color: #08090b; }
+    .wrap { width: min(1160px, calc(100% - 56px)); margin: 0 auto; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--cyan); font: 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { width: 22px; height: 1px; background: currentColor; content: ""; }
+    .section { padding: 112px 0; border-top: 1px solid var(--line); }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 44px; }
+    .section-heading h2 { margin: 12px 0 0; font-size: clamp(34px, 5vw, 58px); line-height: 1.03; letter-spacing: -.065em; }
+    .section-heading p { max-width: 380px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .accent { color: var(--cyan); }
+    .purple { color: var(--purple); }
+
+    .nav { position: fixed; z-index: 10; inset: 0 0 auto; border-bottom: 1px solid rgba(255,255,255,.08); background: rgba(9,9,13,.78); backdrop-filter: blur(16px); }
+    .nav-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-size: 13px; font-weight: 800; letter-spacing: -.04em; }
+    .brand span { color: var(--cyan); }
+    .nav-links { display: flex; align-items: center; gap: 30px; color: #c6c3ce; font-size: 12px; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta { padding: 10px 15px; border: 1px solid rgba(86,232,237,.45); border-radius: 3px; color: var(--cyan); font: 10px var(--mono); letter-spacing: .08em; }
+    .menu-toggle { display: none; padding: 8px; border: 1px solid var(--line); background: none; }
+
+    .hero { position: relative; min-height: 790px; padding: 160px 0 70px; overflow: hidden; display: flex; align-items: center; }
+    .hero::before { position: absolute; inset: 72px 0 0; background: radial-gradient(ellipse at 76% 43%, rgba(121,48,208,.2), transparent 36%), radial-gradient(ellipse at 67% 80%, rgba(34,195,214,.12), transparent 32%); content: ""; pointer-events: none; }
+    .hero-grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 32px; }
+    .hero-copy { position: relative; z-index: 2; }
+    .availability { display: inline-flex; align-items: center; gap: 9px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 2px; color: #c4c0ce; font: 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .availability::before { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); content: ""; }
+    h1 { margin: 28px 0 14px; font-size: clamp(62px, 9.5vw, 128px); line-height: .85; letter-spacing: -.095em; }
+    h1 .outline { color: transparent; -webkit-text-stroke: 1px rgba(244,242,248,.62); }
+    .hero-role { margin: 24px 0 13px; color: #d3cfda; font-size: clamp(15px, 2vw, 20px); font-weight: 600; letter-spacing: -.025em; }
+    .hero-desc { max-width: 450px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .button { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 18px; border: 1px solid transparent; border-radius: 3px; font-size: 11px; font-weight: 800; letter-spacing: .035em; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--cyan); color: #071013; box-shadow: 0 0 28px rgba(86,232,237,.14); }
+    .button-primary:hover { box-shadow: 0 0 34px rgba(86,232,237,.32); }
+    .button-secondary { border-color: var(--line); background: rgba(255,255,255,.03); color: var(--text); }
+    .button-secondary:hover { border-color: rgba(168,85,247,.7); }
+    .button svg { width: 15px; height: 15px; }
+
+    .hero-art { position: relative; min-height: 500px; display: grid; place-items: center; perspective: 900px; }
+    .hero-art::before { position: absolute; width: min(35vw, 410px); aspect-ratio: 1; border: 1px solid rgba(168,85,247,.28); border-radius: 50%; box-shadow: 0 0 90px rgba(168,85,247,.12), inset 0 0 80px rgba(86,232,237,.035); content: ""; animation: orbit 24s linear infinite; }
+    .hero-art::after { position: absolute; width: min(27vw, 315px); aspect-ratio: 1; border: 1px dashed rgba(86,232,237,.23); border-radius: 50%; content: ""; animation: orbit 32s linear infinite reverse; }
+    .poster { position: relative; width: min(65%, 310px); aspect-ratio: .72; overflow: hidden; border: 1px solid rgba(255,255,255,.2); background: #201735; box-shadow: 0 24px 90px rgba(0,0,0,.55); transform: rotateY(-10deg) rotateZ(3deg); }
+    .poster img { width: 100%; height: 100%; display: block; object-fit: cover; filter: saturate(.8) brightness(.72); }
+    .poster::after { position: absolute; inset: 0; background: linear-gradient(160deg,rgba(113,46,193,.08),transparent 45%,rgba(7,7,13,.9)); content: ""; }
+    .poster-caption { position: absolute; z-index: 1; right: 19px; bottom: 18px; left: 19px; }
+    .poster-caption small { color: var(--cyan); font: 9px var(--mono); letter-spacing: .14em; }
+    .poster-caption strong { display: block; margin-top: 6px; font-size: 23px; letter-spacing: -.06em; }
+    .play-button { position: absolute; z-index: 2; top: 50%; left: 50%; width: 58px; height: 58px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.8); border-radius: 50%; background: rgba(9,9,13,.45); color: white; transform: translate(-50%,-50%); backdrop-filter: blur(5px); transition: background .2s, transform .2s; }
+    .play-button:hover { background: var(--purple); transform: translate(-50%,-50%) scale(1.08); }
+    .play-button svg { width: 19px; height: 19px; margin-left: 3px; }
+    .float-tag { position: absolute; z-index: 3; padding: 10px 12px; border: 1px solid var(--line); background: rgba(15,15,22,.82); color: #d8d5e0; font: 9px var(--mono); letter-spacing: .06em; backdrop-filter: blur(10px); }
+    .float-tag-one { top: 16%; left: 2%; }
+    .float-tag-two { right: 0; bottom: 14%; color: var(--cyan); }
+    .hero-index { position: absolute; right: 0; bottom: 13px; color: #666371; font: 10px var(--mono); }
+    .scroll-note { position: absolute; bottom: 34px; left: max(28px, calc((100% - 1160px)/2)); color: #777483; font: 9px var(--mono); letter-spacing: .12em; writing-mode: vertical-rl; }
+
+    .marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #0d0d12; }
+    .marquee-track { width: max-content; display: flex; align-items: center; gap: 36px; padding: 17px 0; color: #85818f; font: 10px var(--mono); letter-spacing: .12em; animation: marquee 32s linear infinite; }
+    .marquee-track span:nth-child(odd) { color: var(--cyan); }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: -16px 0 27px; }
+    .filter { padding: 9px 13px; border: 1px solid var(--line); border-radius: 2px; background: transparent; color: #aaa7b4; font: 10px var(--mono); transition: border-color .2s,color .2s,background .2s; }
+    .filter:hover, .filter.active { border-color: rgba(86,232,237,.6); background: rgba(86,232,237,.08); color: var(--cyan); }
+    .work-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+    .project-card { position: relative; grid-column: span 6; min-width: 0; overflow: hidden; border: 1px solid var(--line); background: var(--panel); cursor: pointer; }
+    .project-card:first-child, .project-card:nth-child(4) { grid-column: span 7; }
+    .project-card:nth-child(2), .project-card:nth-child(3) { grid-column: span 5; }
+    .project-card[hidden] { display: none; }
+    .project-image { position: relative; height: clamp(220px, 33vw, 370px); overflow: hidden; background: #17131e; }
+    .project-image iframe { position: absolute; inset: 0; top: -58px; width: 100%; height: calc(100% + 58px); border: 0; pointer-events: none; }
+    .project-image::after { position: absolute; inset: 35% 0 0; background: linear-gradient(transparent,rgba(7,7,11,.54)); content: ""; }
+    .video-link-card { display: grid; place-items: center; background: radial-gradient(ellipse at 50% 35%,rgba(168,85,247,.28),transparent 40%),linear-gradient(145deg,#17131e,#0d1018); }
+    .video-thumbnail { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.05); }
+    .video-link-preview { position: relative; z-index: 1; display: grid; place-items: center; gap: 18px; text-align: center; }
+    .video-link-preview svg { width: 62px; height: 62px; padding: 18px; border: 1px solid rgba(255,255,255,.28); border-radius: 50%; background: rgba(9,9,13,.35); color: white; }
+    .video-link-preview span { color: white; font: 10px var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+    .video-link-button { position: absolute; z-index: 2; right: 18px; bottom: 18px; padding: 10px 12px; border: 1px solid rgba(255,255,255,.5); background: rgba(10,10,14,.62); color: white; font: 9px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .video-link-button:hover { background: var(--purple); }
+    .project-preview { position: absolute; z-index: 1; inset: 16px 16px auto auto; padding: 8px 10px; border: 1px solid rgba(255,255,255,.32); background: rgba(10,10,14,.52); color: white; font: 9px var(--mono); letter-spacing: .1em; opacity: 0; transform: translateY(5px); transition: .25s; }
+    .project-card:hover .project-preview { opacity: 1; transform: translateY(0); }
+    .archive-preview { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 15px; background: radial-gradient(ellipse at 50% 40%,rgba(168,85,247,.22),transparent 58%),linear-gradient(145deg,#17131e,#0c1318); color: var(--cyan); text-align: center; }
+    .archive-preview svg { width: 42px; height: 42px; }
+    .archive-preview strong { color: var(--text); font-size: 18px; letter-spacing: -.04em; }
+    .archive-preview span { font: 9px var(--mono); letter-spacing: .13em; }
+    .project-info { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 17px 18px 19px; }
+    .project-category { color: var(--cyan); font: 9px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .project-info h3 { margin: 7px 0 0; font-size: 16px; letter-spacing: -.04em; }
+    .project-arrow { width: 31px; height: 31px; display: grid; flex: none; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--cyan); transition: transform .2s; }
+    .project-card:hover .project-arrow { transform: rotate(45deg); }
+    .work-foot { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 26px; color: var(--muted); font-size: 12px; }
+    .text-link { display: inline-flex; align-items: center; gap: 8px; color: var(--cyan); font-weight: 700; }
+    .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    .grade-grid { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 64px; }
+    .grade-copy h2 { margin: 13px 0 19px; font-size: clamp(37px,5vw,58px); line-height: 1; letter-spacing: -.07em; }
+    .grade-copy p { color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .grade-labels { display: flex; justify-content: space-between; gap: 12px; margin-top: 27px; color: #aaa7b4; font: 9px var(--mono); letter-spacing: .1em; }
+    .grade-labels span:last-child { color: var(--cyan); }
+    .compare { --position: 52%; position: relative; height: clamp(300px, 44vw, 490px); overflow: hidden; border: 1px solid rgba(255,255,255,.15); background: #13121a; }
+    .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .compare .before { filter: saturate(.32) brightness(.67) contrast(.87) sepia(.12); }
+    .compare .after { filter: saturate(1.15) contrast(1.09) brightness(.88) hue-rotate(9deg); clip-path: inset(0 0 0 var(--position)); }
+    .compare-line { position: absolute; z-index: 2; top: 0; bottom: 0; left: var(--position); width: 1px; background: rgba(255,255,255,.9); pointer-events: none; }
+    .compare-handle { position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid white; border-radius: 50%; background: rgba(10,10,15,.72); color: white; transform: translate(-50%,-50%); }
+    .compare-handle svg { width: 18px; }
+    .compare input { position: absolute; z-index: 3; inset: 0; width: 100%; height: 100%; margin: 0; cursor: ew-resize; opacity: 0; }
+    .compare input:focus-visible + .compare-line { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    .compare-tag { position: absolute; z-index: 2; top: 16px; padding: 7px 9px; background: rgba(8,8,13,.68); color: white; font: 9px var(--mono); letter-spacing: .1em; pointer-events: none; }
+    .compare-tag.before-tag { left: 15px; }
+    .compare-tag.after-tag { right: 15px; color: var(--cyan); }
+
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .service { min-height: 225px; padding: 27px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: linear-gradient(140deg,rgba(255,255,255,.025),transparent 70%); transition: background .25s; }
+    .service:hover { background: radial-gradient(ellipse at 15% 15%,rgba(168,85,247,.12),transparent 68%); }
+    .service-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .service-icon { width: 39px; height: 39px; display: grid; place-items: center; border: 1px solid rgba(168,85,247,.4); color: var(--purple); }
+    .service-icon svg { width: 19px; height: 19px; }
+    .service-num { color: #6f6c79; font: 10px var(--mono); }
+    .service h3 { margin: 34px 0 9px; font-size: 19px; letter-spacing: -.04em; }
+    .service p { max-width: 420px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.85; }
+
+    .process { display: grid; grid-template-columns: repeat(4,1fr); position: relative; gap: 0; }
+    .process::before { position: absolute; top: 19px; right: 11%; left: 11%; height: 1px; background: linear-gradient(90deg,var(--purple),var(--cyan)); content: ""; opacity: .55; }
+    .step { position: relative; padding: 0 24px 0 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+    .step:focus-visible { outline: 1px solid var(--cyan); outline-offset: 5px; }
+    .step-number { position: relative; z-index: 1; width: 39px; height: 39px; display: grid; place-items: center; border: 1px solid rgba(86,232,237,.55); border-radius: 50%; background: var(--bg); color: var(--cyan); font: 10px var(--mono); }
+    .step:hover .step-number, .step[aria-expanded="true"] .step-number { background: rgba(86,232,237,.12); box-shadow: 0 0 18px rgba(86,232,237,.18); }
+    .step-title { display: block; margin: 23px 0 8px; font-size: 15px; font-weight: 800; letter-spacing: -.03em; }
+    .step-copy { display: block; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+    .step-detail { display: block; margin-top: 10px; color: #d2cfda; font-size: 11px; line-height: 1.8; }
+    .step-detail[hidden] { display: none; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-copy h2 { margin: 13px 0 20px; font-size: clamp(36px,5vw,55px); line-height: 1; letter-spacing: -.075em; }
+    .about-copy p { color: var(--muted); font-size: 13px; line-height: 1.95; }
+    .about-copy p + p { margin-top: 14px; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; margin-top: 34px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .stat { padding: 17px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .stat strong { display: block; color: var(--cyan); font-size: 30px; letter-spacing: -.08em; }
+    .stat span { display: block; margin-top: 3px; color: var(--muted); font: 9px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .about-side { padding-top: 6px; }
+    .about-note { padding: 22px; border: 1px solid var(--line); background: linear-gradient(145deg,rgba(168,85,247,.08),rgba(86,232,237,.025)); }
+    .about-note p { margin: 0; color: #d4d1dc; font-size: 14px; line-height: 1.9; }
+    .about-note p::before { content: "“"; color: var(--purple); font-size: 31px; line-height: 0; vertical-align: -.2em; margin-right: 4px; }
+    .tools-title { margin: 32px 0 15px; color: var(--muted); font: 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .tools { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tool { display: inline-flex; align-items: center; gap: 9px; padding: 10px 12px; border: 1px solid var(--line); background: var(--panel); color: #d7d4de; font-size: 10px; }
+    .tool span { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 10px rgba(168,85,247,.7); }
+
+    .contact { position: relative; overflow: hidden; }
+    .contact::after { position: absolute; right: -140px; bottom: -240px; width: 500px; height: 500px; border: 1px solid rgba(86,232,237,.12); border-radius: 50%; box-shadow: 0 0 0 50px rgba(86,232,237,.018),0 0 0 100px rgba(168,85,247,.025); content: ""; pointer-events: none; }
+    .contact-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; }
+    .contact-copy h2 { max-width: 530px; margin: 14px 0 18px; font-size: clamp(44px,7vw,79px); line-height: .95; letter-spacing: -.085em; }
+    .contact-copy > p { max-width: 420px; color: var(--muted); font-size: 13px; line-height: 1.85; }
+    .contact-links { display: grid; gap: 13px; margin-top: 35px; }
+    .contact-item { display: flex; align-items: center; gap: 13px; color: #d1ced9; font-size: 12px; }
+    .contact-item svg { width: 16px; height: 16px; color: var(--cyan); }
+    .footer { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 20px; padding-top: 40px; margin-top: 80px; border-top: 1px solid var(--line); color: #777482; font: 9px var(--mono); letter-spacing: .06em; }
+    .socials { display: flex; flex-wrap: wrap; gap: 20px; }
+    .socials a:hover { color: var(--cyan); }
+
+    .modal { position: fixed; z-index: 30; inset: 0; display: none; place-items: center; padding: 22px; background: rgba(3,3,7,.86); backdrop-filter: blur(12px); }
+    .modal.open { display: grid; animation: fadeIn .2s ease both; }
+    .modal-dialog { position: relative; width: min(900px,100%); max-height: min(86vh,780px); overflow: auto; border: 1px solid rgba(255,255,255,.16); background: #0d0d12; box-shadow: 0 30px 100px rgba(0,0,0,.6); }
+    .modal-close { position: absolute; z-index: 3; top: 12px; right: 12px; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.35); background: rgba(8,8,12,.76); color: white; font-size: 20px; }
+    .showreel-content { padding: 23px; }
+    .modal-kicker { color: var(--cyan); font: 9px var(--mono); letter-spacing: .15em; }
+    .modal-title { margin: 8px 0 18px; font-size: clamp(22px,4vw,34px); letter-spacing: -.06em; }
+    .reel-frame { position: relative; width: 100%; aspect-ratio: 16/9; background: #15131c; }
+    .reel-frame iframe { width: 100%; height: 100%; border: 0; }
+    .reel-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-top: 16px; color: var(--muted); font-size: 11px; }
+    .project-modal { display: grid; grid-template-columns: 1.1fr .9fr; }
+    .project-modal-video { position: relative; min-height: 400px; background: #08080c; }
+    .project-modal-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video-panel { width: 100%; height: 100%; min-height: 400px; display: grid; place-items: center; text-align: center; padding: 36px; background: radial-gradient(ellipse at 50% 35%,rgba(168,85,247,.24),transparent 40%),linear-gradient(145deg,#17131e,#0c1018); }
+    .video-panel svg { width: 70px; height: 70px; padding: 20px; border: 1px solid rgba(255,255,255,.28); border-radius: 50%; background: rgba(9,9,13,.38); color: white; }
+    .video-panel strong { display: block; margin-top: 20px; color: var(--text); font-size: 24px; letter-spacing: -.05em; }
+    .video-panel p { max-width: 280px; margin: 12px auto 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .video-panel .button { margin-top: 22px; }
+    .project-modal-archive { min-height: 400px; display: grid; place-content: center; justify-items: center; gap: 14px; padding: 28px; background: radial-gradient(ellipse at 50% 40%,rgba(168,85,247,.22),transparent 58%),linear-gradient(145deg,#17131e,#0c1318); text-align: center; }
+    .project-modal-archive[hidden] { display: none; }
+    .project-modal-archive svg { width: 52px; height: 52px; color: var(--cyan); }
+    .project-modal-archive strong { font-size: 19px; }
+    .project-modal-archive span { color: var(--muted); font: 9px var(--mono); letter-spacing: .1em; }
+    .project-modal-copy { align-self: center; padding: 34px; }
+    .project-modal-copy h2 { margin: 10px 0 12px; font-size: 30px; letter-spacing: -.07em; }
+    .project-modal-copy p { color: var(--muted); font-size: 12px; line-height: 1.9; }
+    .project-modal-copy .button { margin-top: 18px; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease,transform .65s ease; }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .project-card.reveal:nth-child(2), .service.reveal:nth-child(2), .step.reveal:nth-child(2) { transition-delay: .08s; }
+    .project-card.reveal:nth-child(3), .service.reveal:nth-child(3), .step.reveal:nth-child(3) { transition-delay: .16s; }
+    .project-card.reveal:nth-child(4), .service.reveal:nth-child(4), .step.reveal:nth-child(4) { transition-delay: .24s; }
+
+    @keyframes orbit { to { transform: rotate(360deg); } }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @media (max-width: 850px) {
+      .hero { min-height: 700px; }
+      .hero-grid { grid-template-columns: 1fr .72fr; gap: 10px; }
+      .hero-art { min-height: 400px; }
+      .grade-grid, .about-grid { gap: 42px; }
+      .contact-grid { gap: 35px; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 36px, 480px); }
+      .section { padding: 78px 0; }
+      .section-heading { align-items: flex-start; flex-direction: column; margin-bottom: 30px; }
+      .section-heading p { font-size: 12px; }
+      .nav-inner { height: 64px; }
+      .nav-links { position: absolute; top: 64px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; padding: 10px 18px 18px; border-bottom: 1px solid var(--line); background: rgba(9,9,13,.97); }
+      .nav-links.open { display: flex; flex-direction: column; }
+      .nav-links a { padding: 13px 0; }
+      .nav-cta { text-align: center; margin-top: 6px; }
+      .menu-toggle { display: grid; place-items: center; width: 38px; height: 38px; }
+      .hero { min-height: initial; padding: 132px 0 90px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(62px, 17vw, 96px); }
+      .hero-desc { max-width: 390px; }
+      .hero-art { min-height: 340px; margin-top: 9px; }
+      .hero-art::before { width: min(78vw,330px); }
+      .hero-art::after { width: min(59vw,245px); }
+      .poster { width: min(58%,230px); }
+      .float-tag-one { left: 4%; }
+      .float-tag-two { right: 2%; bottom: 11%; }
+      .scroll-note { display: none; }
+      .project-card, .project-card:first-child, .project-card:nth-child(2), .project-card:nth-child(3), .project-card:nth-child(4) { grid-column: span 12; }
+      .project-image { height: 250px; }
+      .work-foot { align-items: flex-start; flex-direction: column; }
+      .grade-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 34px; }
+      .compare { height: 310px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service { min-height: 195px; }
+      .process { grid-template-columns: 1fr 1fr; gap: 34px 18px; }
+      .process::before { display: none; }
+      .step { padding: 0; }
+      .step-title { margin-top: 15px; }
+      .about-grid { gap: 30px; }
+      .contact-copy h2 { font-size: clamp(48px,14vw,72px); }
+      .footer { align-items: flex-start; flex-direction: column; margin-top: 55px; }
+      .project-modal { grid-template-columns: 1fr; }
+      .project-modal-video, .project-modal-archive { min-height: 260px; height: 38vh; }
+      .project-modal-copy { padding: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="Siddhant Gopale home">SG<span>_</span></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div class="nav-links">
+        <a href="#work">Work</a><a href="#services">Services</a><a href="#process">Process</a><a href="#about">About</a>
+        <a class="nav-cta" href="https://wa.me/919145752040?text=Hi%20Siddhant%2C%20I%27d%20like%20to%20talk%20about%20a%20video%20project." target="_blank" rel="noopener noreferrer">LET'S TALK ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="availability">Available for creative projects</span>
+          <h1>SIDDHANT<br><span class="outline">GOPALE</span></h1>
+          <p class="hero-role">Video Editor <span class="purple">/</span> Visual Storyteller</p>
+          <p class="hero-desc">I turn raw footage into stories you can feel. From high-energy event films to scroll-stopping reels, every cut has a reason.</p>
+          <div class="hero-actions">
+            <button class="button button-primary" type="button" data-open-reel>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg> PLAY SHOWREEL
+            </button>
+            <a class="button button-secondary" href="#work">EXPLORE MY WORK <span aria-hidden="true">↘</span></a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Cinematic preview artwork">
+          <span class="float-tag float-tag-one">FRAME 001 — THE STORY STARTS</span>
+          <div class="poster">
+            <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=850&q=85" alt="Cinematic night sky over a mountain landscape">
+            <button class="play-button" type="button" aria-label="Play showreel" data-open-reel>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
+            </button>
+            <div class="poster-caption"><small>SELECTED STORIES · 2025—26</small><strong>Made to move you.</strong></div>
+          </div>
+          <span class="float-tag float-tag-two">CUT. COLOUR. FEEL. &nbsp;✳</span>
+          <span class="hero-index">PUNE, INDIA · 18°31′N</span>
+        </div>
+      </div>
+      <span class="scroll-note">SCROLL TO EXPLORE ↓</span>
+    </header>
+
+    <div class="marquee" aria-label="Creative disciplines">
+      <div class="marquee-track" aria-hidden="true">
+        <span>STORY FIRST</span> ✳ &nbsp; EDITING &nbsp; ✳ <span>COLOUR &amp; FEELING</span> ✳ &nbsp; MOTION &nbsp; ✳ <span>MADE TO MOVE</span> ✳ &nbsp; EVENT FILMS &nbsp; ✳
+        <span>STORY FIRST</span> ✳ &nbsp; EDITING &nbsp; ✳ <span>COLOUR &amp; FEELING</span> ✳ &nbsp; MOTION &nbsp; ✳ <span>MADE TO MOVE</span> ✳ &nbsp; EVENT FILMS &nbsp; ✳
+      </div>
+    </div>
+
+    <section class="section" id="work">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">Selected work / 01</span><h2>Stories in <span class="accent">motion.</span></h2></div>
+          <p>A selection of event films, club promos and social-first edits. Pick a category and explore the cuts.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter projects">
+          <button class="filter active" type="button" data-filter="all" aria-pressed="true">ALL WORK</button>
+          <button class="filter" type="button" data-filter="events" aria-pressed="false">EVENTS</button>
+          <button class="filter" type="button" data-filter="promos" aria-pressed="false">PROMOS</button>
+          <button class="filter" type="button" data-filter="social" aria-pressed="false">SOCIAL</button>
+        </div>
+        <div class="work-grid">
+          <article class="project-card reveal" tabindex="0" role="button" data-category="events" data-project="technovision">
+            <div class="project-image"><iframe src="https://www.instagram.com/reel/DXGUHoHirzv/embed" title="Technovision reel thumbnail from Instagram" loading="lazy" scrolling="no" referrerpolicy="strict-origin-when-cross-origin"></iframe><span class="project-preview">VIEW REEL ↗</span></div>
+            <div class="project-info"><div><span class="project-category">EVENT FILM · 2025—26</span><h3>Technovision — College Fest</h3></div><span class="project-arrow" aria-hidden="true">↗</span></div>
+          </article>
+          <article class="project-card reveal" tabindex="0" role="button" data-category="promos" data-project="success-squad">
+            <div class="project-image"><iframe src="https://www.instagram.com/reel/DPlqDujDFDl/embed" title="Success Squad reel thumbnail from Instagram" loading="lazy" scrolling="no" referrerpolicy="strict-origin-when-cross-origin"></iframe><span class="project-preview">VIEW REEL ↗</span></div>
+            <div class="project-info"><div><span class="project-category">CLUB PROMO · 2025—26</span><h3>Success Squad</h3></div><span class="project-arrow" aria-hidden="true">↗</span></div>
+          </article>
+          <article class="project-card reveal" tabindex="0" role="button" data-category="social" data-project="campus-story">
+            <div class="project-image video-link-card">
+              <img class="video-thumbnail" src="https://img.youtube.com/vi/kY9rLskpD4k/maxresdefault.jpg" alt="Documentary on Kalanyi Dam thumbnail" loading="lazy">
+              <div class="video-link-preview" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5z"/></svg>
+                <span>Watch video</span>
+              </div>
+              <a class="video-link-button" href="https://youtu.be/kY9rLskpD4k" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Open YouTube ↗</a>
+            </div>
+            <div class="project-info"><div><span class="project-category">SOCIAL STORY · 2026</span><h3>Documentary on Kalanyi Dam</h3></div><span class="project-arrow" aria-hidden="true">↗</span></div>
+          </article>
+          <article class="project-card reveal" tabindex="0" role="button" data-category="events" data-project="event-stories">
+            <div class="project-image"><div class="archive-preview" aria-label="Full event portfolio on Google Drive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="m9 3-7 12 3 5h14l3-5L15 3z"/><path d="m9 3 6 12m-13 0h14m-9 5 4-5"/></svg><strong>More event highlights</strong><span>OPEN FULL DRIVE COLLECTION ↗</span></div><span class="project-preview">OPEN DRIVE ↗</span></div>
+            <div class="project-info"><div><span class="project-category">MORE FROM THE PORTFOLIO</span><h3>More Event Highlights</h3></div><span class="project-arrow" aria-hidden="true">↗</span></div>
+          </article>
+        </div>
+        <div class="work-foot"><span>Watch the original reels or browse the full collection.</span><a class="text-link" href="https://drive.google.com/drive/folders/1SmneklVukRigjNV5lvYWK8K_i_aBBxmn?usp=drive_link" target="_blank" rel="noopener noreferrer">OPEN FULL PORTFOLIO <span>↗</span></a></div>
+      </div>
+    </section>
+
+    <section class="section" id="grading">
+      <div class="wrap grade-grid">
+        <div class="grade-copy reveal">
+          <span class="eyebrow">The finishing touch / 02</span>
+          <h2>Same frame.<br><span class="purple">New feeling.</span></h2>
+          <p>Colour shapes the emotion of a story. Drag the slider to see how a considered grade can turn a flat image into a mood.</p>
+          <div class="grade-labels"><span>BEFORE · RAW</span><span>AFTER · GRADED</span></div>
+        </div>
+        <div class="compare reveal" style="--position:52%">
+          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1400&q=90" alt="" class="before">
+          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1400&q=90" alt="Mountain lake at sunset with cinematic colour grading" class="after">
+          <span class="compare-tag before-tag">RAW</span><span class="compare-tag after-tag">FINAL GRADE</span>
+          <div class="compare-line"><span class="compare-handle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></span></div>
+          <input type="range" min="0" max="100" value="52" aria-label="Compare before and after color grading">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">What I do / 03</span><h2>Craft, cut, <span class="purple">connect.</span></h2></div>
+          <p>From the first rough cut to the final export, every detail works toward one thing: a story that stays with you.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service reveal"><div class="service-top"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4zM8 3v3m8-3v3M8 18v3m8-3v3M4 10H2m2 4H2m20-4h-2m2 4h-2"/></svg></span><span class="service-num">01 / EDIT</span></div><h3>Video Editing</h3><p>Rhythm, pacing and story-led cuts for event films, highlight videos and digital content that hold attention to the last frame.</p></article>
+          <article class="service reveal"><div class="service-top"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72m0-12.72L5.64 18.36"/><circle cx="12" cy="12" r="8"/></svg></span><span class="service-num">02 / MOTION</span></div><h3>Motion &amp; Titles</h3><p>Purposeful animated titles, transitions and graphic details that give each film its own visual language.</p></article>
+          <article class="service reveal"><div class="service-top"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v9h9M12 12l-6.4 6.4"/></svg></span><span class="service-num">03 / COLOUR</span></div><h3>Color Grading</h3><p>Shot matching and expressive colour to bring consistency, atmosphere and a cinematic finish to every sequence.</p></article>
+          <article class="service reveal"><div class="service-top"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m10 9 5 3-5 3z"/></svg></span><span class="service-num">04 / SOCIAL</span></div><h3>Social-First Content</h3><p>Platform-ready edits for Reels, Shorts and YouTube — shaped for the right aspect ratio, audience and moment.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">From brief to playback / 04</span><h2>A clear cut from <span class="accent">start to finish.</span></h2></div>
+          <p>Good work comes from a good process. Here’s how we get from your idea to a film you’re excited to share.</p>
+        </div>
+        <div class="process">
+          <button class="step reveal" type="button" aria-expanded="false"><span class="step-number">01</span><span class="step-title">Listen &amp; align</span><span class="step-copy">We talk goals, audience, format and the feeling the final film should leave behind.</span><span class="step-detail" hidden>Share references, key dates and must-have moments; we’ll agree on the scope and a clear direction before editing begins.</span></button>
+          <button class="step reveal" type="button" aria-expanded="false"><span class="step-number">02</span><span class="step-title">Find the story</span><span class="step-copy">Footage is reviewed, moments are selected, and the first assembly finds its rhythm.</span><span class="step-detail" hidden>We sort through the footage, find the strongest moments and build an edit that has a beginning, a build and a memorable finish.</span></button>
+          <button class="step reveal" type="button" aria-expanded="false"><span class="step-number">03</span><span class="step-title">Shape the cut</span><span class="step-copy">We refine pacing, sound, titles and colour with feedback along the way.</span><span class="step-detail" hidden>Your notes guide a focused revision pass; sound, graphics and grading bring the chosen direction together.</span></button>
+          <button class="step reveal" type="button" aria-expanded="false"><span class="step-number">04</span><span class="step-title">Deliver &amp; share</span><span class="step-copy">The final edit is polished, exported for your platforms and ready to move people.</span><span class="step-detail" hidden>We check the final cut, prepare the agreed formats and deliver files ready for your channels.</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap about-grid">
+        <div class="about-copy reveal">
+          <span class="eyebrow">A little about me / 05</span>
+          <h2>Curious by nature.<br><span class="purple">Editor by instinct.</span></h2>
+          <p>I’m Siddhant, a Pune-based video editor drawn to the little moments that make a story feel real. I work across college events, club promos and short-form content — bringing together pace, music and imagery to make every edit feel intentional.</p>
+          <p>Currently studying B.Tech at JSPM BSCOER, I’m always learning, experimenting and looking for the next story worth telling.</p>
+          <div class="stats">
+            <div class="stat"><strong data-count="3" data-suffix="">0</strong><span>Public reels</span></div>
+            <div class="stat"><strong data-count="3" data-suffix="">0</strong><span>Editing tools</span></div>
+            <div class="stat"><strong data-count="4" data-suffix="">0</strong><span>Creative services</span></div>
+            <div class="stat"><strong data-count="4" data-suffix="">0</strong><span>Process steps</span></div>
+          </div>
+        </div>
+        <div class="about-side reveal">
+          <div class="about-note"><p>I believe the best edits don’t just show what happened. They bring you right back to how it felt.</p></div>
+          <h3 class="tools-title">Tools in my timeline</h3>
+          <div class="tools"><span class="tool"><span></span>Adobe Premiere Pro</span><span class="tool"><span></span>After Effects</span><span class="tool"><span></span>DaVinci Resolve</span></div>
+          <h3 class="tools-title">Currently learning</h3>
+          <div class="tools"><span class="tool"><span></span>Story-driven color</span><span class="tool"><span></span>Motion design</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="wrap">
+        <div class="contact-grid">
+          <div class="contact-copy reveal">
+            <span class="eyebrow">Your story, next / 06</span>
+            <h2>Have a good one <span class="accent">in mind?</span></h2>
+            <p>Have footage that needs a story, an event coming up, or just want to say hello? Tell me a little about it and let's make something memorable.</p>
+            <div class="contact-links">
+              <a class="contact-item" href="mailto:siddhantgopale08@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>siddhantgopale08@gmail.com</a>
+              <a class="contact-item" href="tel:+919145752040"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3H4a1 1 0 0 0-1 1 17 17 0 0 0 17 17 1 1 0 0 0 1-1v-3l-5-2-2 3a14 14 0 0 1-6-6l3-2-2-5z"/></svg>+91 91457 52040</a>
+              <span class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Pune, Maharashtra, India</span>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>© 2026 SIDDHANT GOPALE · MADE WITH INTENTION</span>
+          <div class="socials">
+            <a href="https://www.instagram.com/siddlxx_06" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a>
+            <a href="https://www.linkedin.com/in/siddhant-gopale-13418937a" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a>
+            <a href="https://drive.google.com/drive/folders/1SmneklVukRigjNV5lvYWK8K_i_aBBxmn?usp=drive_link" target="_blank" rel="noopener noreferrer">PORTFOLIO ↗</a>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="reel-modal" role="dialog" aria-modal="true" aria-labelledby="reel-title">
+    <div class="modal-dialog showreel-content">
+      <button class="modal-close" type="button" aria-label="Close showreel">×</button>
+      <span class="modal-kicker">SHOWREEL / SELECTED CUTS</span>
+      <h2 class="modal-title" id="reel-title">Stories worth a second look.</h2>
+      <div class="reel-frame">
+        <div class="video-panel" id="reel-video-panel" hidden>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5z"/></svg>
+          <strong>Watch on YouTube</strong>
+          <p>Open the video in a separate tab to view the full story.</p>
+          <a class="button button-primary" id="reel-open-video" href="#" target="_blank" rel="noopener noreferrer">OPEN VIDEO ↗</a>
+        </div>
+        <iframe id="reel-embed" title="Instagram showreel preview" src="about:blank" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="reel-meta"><span id="reel-label">Documentary on Kalanyi Dam · Social edit</span><a class="text-link" id="reel-open-link" href="https://youtu.be/kY9rLskpD4k" target="_blank" rel="noopener noreferrer">WATCH ON YOUTUBE ↗</a><a class="text-link" href="https://drive.google.com/drive/folders/1SmneklVukRigjNV5lvYWK8K_i_aBBxmn?usp=drive_link" target="_blank" rel="noopener noreferrer">FULL WORK COLLECTION ↗</a></div>
+    </div>
+  </div>
+
+  <div class="modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-title">
+    <div class="modal-dialog project-modal">
+      <button class="modal-close" type="button" aria-label="Close project">×</button>
+      <div class="project-modal-video" id="project-modal-video">
+        <div class="video-panel" id="project-video-panel" hidden>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5z"/></svg>
+          <strong>Watch on YouTube</strong>
+          <p>Open the video in a separate tab to view the full documentary.</p>
+          <a class="button button-primary" id="project-modal-link" href="#" target="_blank" rel="noopener noreferrer">OPEN VIDEO ↗</a>
+        </div>
+        <iframe id="project-modal-embed" title="Selected Instagram project reel" src="about:blank" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="project-modal-archive" id="project-modal-archive" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="m9 3-7 12 3 5h14l3-5L15 3z"/><path d="m9 3 6 12m-13 0h14m-9 5 4-5"/></svg><strong>More stories in the full collection</strong><span>EVENTS · PROMOS · SOCIAL FILMS</span></div>
+      <div class="project-modal-copy"><span class="modal-kicker" id="project-modal-category"></span><h2 id="project-title"></h2><p id="project-modal-description"></p></div>
+    </div>
+  </div>
+
+  <script>
+    const projectData = {
+      technovision: {
+        title: "Technovision — College Fest",
+        category: "EVENT FILM · TECHNOVISION",
+        description: "A high-energy edit capturing the atmosphere, performances and people behind Technovision, a college-level technical and cultural event.",
+        reelId: "DXGUHoHirzv",
+        href: "https://www.instagram.com/reel/DXGUHoHirzv/?stkn=aDV4cWk0anNldHkw"
+      },
+      "success-squad": {
+        title: "Success Squad",
+        category: "CLUB PROMO · COLLEGE CLUB",
+        description: "Promotional and highlight content created for Success Squad, bringing the club's activities and community to life through a social-first edit.",
+        reelId: "DPlqDujDFDl",
+        href: "https://www.instagram.com/reel/DPlqDujDFDl/?stkn=MXB6aTcyNGhrYjJqag=="
+      },
+      "campus-story": {
+        title: "Documentary on Kalanyi Dam",
+        category: "SOCIAL STORY · 2026",
+        description: "A documentary-style short exploring the story, atmosphere and perspective around Kalanyi Dam.",
+        embedType: "youtube",
+        videoId: "kY9rLskpD4k",
+        href: "https://youtu.be/kY9rLskpD4k"
+      },
+      "event-stories": {
+        title: "More Event Highlights",
+        category: "MORE FROM THE PORTFOLIO",
+        description: "Explore the complete portfolio collection for more event moments, creative assignments and short-form edits.",
+        reelId: null,
+        href: "https://drive.google.com/drive/folders/1SmneklVukRigjNV5lvYWK8K_i_aBBxmn?usp=drive_link"
+      }
+    };
+
+    const modals = [...document.querySelectorAll(".modal")];
+    let lastFocused = null;
+    function openModal(modal) {
+      lastFocused = document.activeElement;
+      modal.classList.add("open");
+      document.body.classList.add("modal-open");
+      modal.querySelector(".modal-close").focus();
+    }
+    function closeModal(modal) {
+      modal.classList.remove("open");
+      if (modal.id === "reel-modal") {
+        document.getElementById("reel-embed").src = "about:blank";
+        document.getElementById("reel-embed").hidden = false;
+        document.getElementById("reel-video-panel").hidden = true;
+      }
+      if (modal.id === "project-modal") {
+        document.getElementById("project-modal-embed").src = "about:blank";
+        document.getElementById("project-modal-embed").hidden = false;
+        document.getElementById("project-video-panel").hidden = true;
+      }
+      if (!modals.some(item => item.classList.contains("open"))) document.body.classList.remove("modal-open");
+      if (lastFocused instanceof HTMLElement) lastFocused.focus();
+    }
+    const reels = [
+      { label: "Documentary on Kalanyi Dam · Social edit", href: projectData["campus-story"].href },
+      { label: "Technovision · College fest", href: projectData.technovision.href },
+      { label: "Success Squad · Club promo", href: projectData["success-squad"].href }
+    ];
+    function getEmbedUrl(project) {
+      if (!project) return "about:blank";
+      if (project.embedType === "youtube" || project.href.includes("youtu")) {
+        const youtubeId = project.videoId || project.href.match(/(?:youtu\.be\/|v=)([^?&]+)/)?.[1];
+        return youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : "about:blank";
+      }
+      return project.reelId ? `https://www.instagram.com/reel/${project.reelId}/embed` : "about:blank";
+    }
+    function openReel() {
+      const reel = reels[0];
+      const reelId = reel.href.match(/(?:youtu\.be\/|v=)([^?&]+)/)?.[1];
+      const reelEmbed = document.getElementById("reel-embed");
+      const reelVideoPanel = document.getElementById("reel-video-panel");
+      document.getElementById("reel-label").textContent = reel.label;
+      document.getElementById("reel-open-link").href = reel.href;
+      document.getElementById("reel-open-video").href = reel.href;
+      if (reel.href.includes("youtu")) {
+        reelEmbed.src = "about:blank";
+        reelEmbed.hidden = true;
+        reelVideoPanel.hidden = false;
+      } else {
+        reelEmbed.src = reelId ? `https://www.instagram.com/reel/${reelId}/embed` : "about:blank";
+        reelEmbed.hidden = false;
+        reelVideoPanel.hidden = true;
+      }
+      openModal(document.getElementById("reel-modal"));
+    }
+    document.querySelectorAll("[data-open-reel]").forEach(button => button.addEventListener("click", openReel));
+    modals.forEach(modal => {
+      modal.querySelector(".modal-close").addEventListener("click", () => closeModal(modal));
+      modal.addEventListener("click", event => { if (event.target === modal) closeModal(modal); });
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        const open = modals.find(modal => modal.classList.contains("open"));
+        if (open) closeModal(open);
+      }
+      if (event.key === "Tab") {
+        const modal = modals.find(item => item.classList.contains("open"));
+        if (!modal) return;
+        const focusable = [...modal.querySelectorAll("button,a[href],iframe")].filter(element => element.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    });
+
+    const projectModal = document.getElementById("project-modal");
+    function showProject(card) {
+      const project = projectData[card.dataset.project];
+      if (!project) return;
+      document.getElementById("project-title").textContent = project.title;
+      document.getElementById("project-modal-category").textContent = project.category;
+      document.getElementById("project-modal-description").textContent = project.description;
+      const reelEmbed = document.getElementById("project-modal-embed");
+      const videoPanel = document.getElementById("project-video-panel");
+      const isYouTubeProject = Boolean(project.href.includes("youtu"));
+      const isReel = Boolean(project.reelId);
+      if (isYouTubeProject) {
+        reelEmbed.src = "about:blank";
+        reelEmbed.hidden = true;
+        videoPanel.hidden = false;
+        videoPanel.querySelector("a").href = project.href;
+      } else {
+        reelEmbed.src = getEmbedUrl(project);
+        reelEmbed.hidden = false;
+        videoPanel.hidden = true;
+      }
+      document.getElementById("project-modal-video").hidden = !isReel && !isYouTubeProject;
+      document.getElementById("project-modal-archive").hidden = isReel || isYouTubeProject;
+      openModal(projectModal);
+    }
+    document.querySelectorAll(".project-card").forEach(card => {
+      card.addEventListener("click", () => showProject(card));
+      card.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); showProject(card); }
+      });
+    });
+
+    document.querySelectorAll(".step").forEach(step => step.addEventListener("click", () => {
+      const expand = step.getAttribute("aria-expanded") !== "true";
+      document.querySelectorAll(".step").forEach(item => {
+        item.setAttribute("aria-expanded", "false");
+        item.querySelector(".step-detail").hidden = true;
+      });
+      step.setAttribute("aria-expanded", String(expand));
+      step.querySelector(".step-detail").hidden = !expand;
+    }));
+
+    document.querySelectorAll(".filter").forEach(button => button.addEventListener("click", () => {
+      const filter = button.dataset.filter;
+      document.querySelectorAll(".filter").forEach(item => {
+        const selected = item === button;
+        item.classList.toggle("active", selected);
+        item.setAttribute("aria-pressed", String(selected));
+      });
+      document.querySelectorAll(".project-card").forEach(card => {
+        card.hidden = filter !== "all" && card.dataset.category !== filter;
+      });
+    }));
+
+    const compare = document.querySelector(".compare");
+    const compareRange = compare.querySelector('input[type="range"]');
+    compareRange.addEventListener("input", () => compare.style.setProperty("--position", `${compareRange.value}%`));
+
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => {
+      const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!expanded));
+      menuToggle.setAttribute("aria-label", expanded ? "Open navigation" : "Close navigation");
+      navLinks.classList.toggle("open", !expanded);
+    });
+    navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation");
+    }));
+
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add("in-view"); revealObserver.unobserve(entry.target); }
+    }), { threshold: .12 });
+    document.querySelectorAll(".reveal").forEach(element => revealObserver.observe(element));
+
+    let countersStarted = false;
+    const stats = document.querySelector(".stats");
+    const countObserver = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting) && !countersStarted) {
+        countersStarted = true;
+        document.querySelectorAll("[data-count]").forEach(counter => {
+          const target = Number(counter.dataset.count);
+          const start = performance.now();
+          function update(now) {
+            const progress = Math.min((now - start) / 1100, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            counter.textContent = `${Math.round(target * eased)}${counter.dataset.suffix}`;
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+        });
+      }
+    }, { threshold: .3 });
+    countObserver.observe(stats);
+
+  </script>
+</body>
+</html>
